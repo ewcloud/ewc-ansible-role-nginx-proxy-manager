@@ -46,6 +46,28 @@
     - docker
     - containerd
 
+- name: Create nginx-proxy directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - "/opt/nginx-proxy"
+    - "/opt/nginx-proxy/data"
+    - "/opt/nginx-proxy/letsencrypt"
+
+- name: Template docker-compose.yml
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "/opt/nginx-proxy/docker-compose.yml"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Deploy nginx-proxy compose
+
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
