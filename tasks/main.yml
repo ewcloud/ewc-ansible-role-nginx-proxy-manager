@@ -6,3 +6,45 @@
       - ansible_facts['distribution_major_version'] == '22'
     fail_msg: "Supports Ubuntu versions 22. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_major_version'] }}."
     success_msg: "Running on Ubuntu {{ ansible_facts['distribution_major_version'] }}."
+
+- name: Ensure apt cache is up-to-date
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Add Docker GPG key
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+
+- name: Add Docker apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+    filename: docker
+
+- name: Update apt cache after adding repo
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install Docker packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose-plugin
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: List installed package versions
+  ansible.builtin.debug:
+    msg:
+      - "docker-ce: {{ ansible_facts.packages['docker-ce'][0].version }}"
+      - "docker-ce-cli: {{ ansible_facts.packages['docker-ce-cli'][0].version }}"
+      - "containerd.io: {{ ansible_facts.packages['containerd.io'][0].version }}"
+      - "docker-compose-plugin: {{ ansible_facts.packages['docker-compose-plugin'][0].version }}"
