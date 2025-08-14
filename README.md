@@ -10,10 +10,18 @@ The template is designed to:
   about and working with [Nginx](https://nginx.org/en) servers.
 
 ## Copyright and License
-> 💡 No dependencies are distributed as part of this repository.
+Copyright © EUMETSAT 2025.
 
-See the LICENSE file for licensing information as it pertains to
-files in this repository.
+The provided code and instructions are licensed under the MIT license. 
+They are intended to automate the setup of an environment that includes 
+third-party software components.
+The usage and distribution terms of the resulting environment are 
+subject to the individual licenses of those third-party libraries.
+
+Users are responsible for reviewing and complying with the licenses of
+all third-party components included in the environment.
+
+Contact [EUMETSAT](http://www.eumetsat.int) for details on the usage and distribution terms.
 
 ## Usage
 
@@ -66,25 +74,21 @@ You can apply changes on the target host by running:
 ansible-playbook -i inventory.yml playbook.yml
 ```
 
-## Final Environment
-> ⚠️ Versions listed here refer only to those available for Ubuntu 22 packages
-as of August 8th, 2025. As new security patches/features are published by their
-authors, and newer Ubuntu image versions are introduced into the EWC, the 
-effective versions installed in your environment might be higher.
+## SW Bill of Materials (SBoM)
 
 Third-party components used in the resulting environment.
 
-### Ubuntu 22 Environment
+### Ubuntu 22.04 Environment
 
 The following components will be included in the resulting environment:
 
 | Component | Version | License | Home URL |
 |------|---------|---------|--------------|
-| docker-ce | >=28.3.3 | Apache-2.0 | https://github.com/docker-archive/docker-ce |
-| docker-ce-cli | >=28.3.3 | Apache-2.0 | https://github.com/docker/cli |
-| containerd.io | >=1.7.27  | Apache-2.0 | https://github.com/containerd/containerd |
-| docker-compose-plugin | >=2.39.1 |  Apache-2.0 | https://github.com/docker/compose |
-| nginx-proxy-manager | >=2.12.6 |  MIT | https://hub.docker.com/r/jc21/nginx-proxy-manager |
+| docker-ce | 28.3 | Apache-2.0 | https://github.com/docker-archive/docker-ce |
+| docker-ce-cli | 28.3 | Apache-2.0 | https://github.com/docker/cli |
+| containerd.io | 1.7  | Apache-2.0 | https://github.com/containerd/containerd |
+| docker-compose-plugin | 2.39 |  Apache-2.0 | https://github.com/docker/compose |
+| nginx-proxy-manager | 2.10 |  MIT | https://hub.docker.com/r/jc21/nginx-proxy-manager |
 
 ## Changelog
 All notable changes (i.e. fixes, features and breaking changes) are documented 
