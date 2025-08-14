@@ -1,0 +1,11 @@
+---
+- name: Deploy nginx-proxy compose
+  community.docker.docker_compose_v2:
+    project_src: "/opt/nginx-proxy"
+    files:
+      - "/opt/nginx-proxy/docker-compose.yml"
+    pull: missing
+    dependencies: true
+    wait: true
+    wait_timeout: 300
+    state: present
