@@ -27,15 +27,25 @@
   ansible.builtin.apt:
     update_cache: true
 
+- name: Pin package versions prior to installation
+  ansible.builtin.set_fact:
+    package_versions:
+      ubuntu:
+        docker-ce: "docker-ce=5:28.3.3-1~ubuntu.22.04~jammy"
+        docker-ce-cli: "docker-ce-cli=5:28.3.3-1~ubuntu.22.04~jammy"
+        containerd.io: "containerd.io=1.7.27-1"
+        docker-compose-plugin: "docker-compose-plugin=2.39.1-1~ubuntu.22.04~jammy"
+
 - name: Install Docker packages
   ansible.builtin.apt:
     name: "{{ item }}"
     state: present
+    allow_downgrade: true
   loop:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
-    - docker-compose-plugin
+    - "{{ package_versions['ubuntu']['docker-ce'] }}"
+    - "{{ package_versions['ubuntu']['docker-ce-cli'] }}"
+    - "{{ package_versions['ubuntu']['containerd.io'] }}"
+    - "{{ package_versions['ubuntu']['docker-compose-plugin'] }}"
 
 - name: Ensure docker service is enabled and started
   ansible.builtin.systemd:
