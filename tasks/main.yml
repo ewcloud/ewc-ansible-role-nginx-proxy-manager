@@ -3,9 +3,9 @@
   ansible.builtin.assert:
     that:
       - ansible_facts['distribution'] == 'Ubuntu'
-      - ansible_facts['distribution_major_version'] == '22'
-    fail_msg: "Supports Ubuntu versions 22. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_major_version'] }}."
-    success_msg: "Running on Ubuntu {{ ansible_facts['distribution_major_version'] }}."
+      - ansible_facts['distribution_version'] == '22.04'
+    fail_msg: "Supports Ubuntu version 22.04. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}."
+    success_msg: "Running on Ubuntu {{ ansible_facts['distribution_version'] }}."
 
 - name: Ensure apt cache is up-to-date
   ansible.builtin.apt:
