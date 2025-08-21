@@ -1,4 +1,28 @@
 ---
+- name: Validate user inputs
+  ansible.builtin.assert:
+    that:
+      - npm_admin_ui_port is defined and npm_admin_ui_port != ''
+      - npm_admin_ui_port | int >= 1 and npm_admin_ui_port | int <= 65535
+      - os_security_group_name is defined and os_security_group_name != ''
+    fail_msg: "Input validation failed. See README.md for information on required inputs and their format."
+    success_msg: "User input configuration is valid."
+
+- name: Gather information about OpenStack security group
+  openstack.cloud.security_group_info:
+    name: "{{ os_security_group_name }}"
+  register: security_group_info
+  delegate_to: localhost
+  become: false
+
+- name: Verify user-specified OpenStack security group exists
+  ansible.builtin.assert:
+    that:
+      - security_group_info.security_groups | length > 0
+      - security_group_info.security_groups | length == 1
+    fail_msg: "OpenStack security group '{{ os_security_group_name }}' does not exist or is not unique."
+    success_msg: "OpenStack security group '{{ os_security_group_name }}' exists."
+
 - name: Verify Linux distribution version
   ansible.builtin.assert:
     that:
@@ -89,3 +113,8 @@
       - "docker-ce-cli: {{ ansible_facts.packages['docker-ce-cli'][0].version }}"
       - "containerd.io: {{ ansible_facts.packages['containerd.io'][0].version }}"
       - "docker-compose-plugin: {{ ansible_facts.packages['docker-compose-plugin'][0].version }}"
+
+- name: List verified OpenStack resources
+  ansible.builtin.debug:
+    msg:
+      - "OpenStack Security Group: '{{ os_security_group_name }}'"
