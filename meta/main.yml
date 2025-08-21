@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: European Weather Cloud
+  description: Nginx Proxy Manager Ansible Role
+  company: EUMETSAT
+  license: MIT
+  min_ansible_version: "2.15"
+  galaxy_tags: []
+dependencies: []
