@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/compare/1.1.0...1.1.1) (2025-12-03)
+
+
+### Bug Fixes
+
+* Portable bash command for Trivy installation ([29fdb84](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/commit/29fdb84a469c503196f41216f84b10805763149a))
+
 # [1.1.0](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/compare/1.0.0...1.1.0) (2025-12-03)
 
 
