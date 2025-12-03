@@ -5,7 +5,7 @@ This repository contains a configuration template
 to customize your environment in the
 [European Weather Cloud (EWC)](https://europeanweather.cloud/).
 The template is designed to:
-* Configure a pre-existing Ubuntu instance to run [Nginx Proxy Manager](https://nginxproxymanager.com),
+* Configure a pre-existing instance with Ubuntu versions 24 or 22 to run [Nginx Proxy Manager](https://nginxproxymanager.com),
   a fully-featured tool that helps to lower the entry barrier for users who are interested in learning
   about and working with [Nginx](https://nginx.org/en) servers.
 
@@ -90,21 +90,17 @@ ansible-playbook -i inventory.yml playbook.yml
 | npm_admin_ui_port | port number at which the Nginx Proxy Manager admin UI is served. Example: `8080` | `number` | n/a | yes |
 | os_security_group_name | OpenStack security group containing all firewall rules required for Nginx Proxy Manager operation. Example: `nginx-proxy-manager` | `string` | n/a | yes |
 
-## SW Bill of Materials (SBoM)
+## Dependencies
+> 💡 Upon execution, a SBOM (SPDX format) is auto-generated and stored in the VM's file system root directory (see `/sbom.json`).
+The following third-party components will be included in the resulting environment:
 
-Third-party components used in the resulting environment.
-
-### Ubuntu 22.04 Environment
-
-The following components will be included in the resulting environment:
-
-| Component | Version | License | Home URL |
-|------|---------|---------|--------------|
-| docker-ce | 28.3 | Apache-2.0 | https://github.com/docker-archive/docker-ce |
-| docker-ce-cli | 28.3 | Apache-2.0 | https://github.com/docker/cli |
-| containerd.io | 1.7  | Apache-2.0 | https://github.com/containerd/containerd |
-| docker-compose-plugin | 2.39 |  Apache-2.0 | https://github.com/docker/compose |
-| nginx-proxy-manager | 2.10 |  MIT | https://hub.docker.com/r/jc21/nginx-proxy-manager |
+| Component | Home URL |
+|------|---------|
+| docker-ce |  https://github.com/moby/moby |
+| docker-ce-cli | https://github.com/docker/cli |
+| containerd.io | https://github.com/containerd/containerd |
+| docker-compose-plugin | https://github.com/docker/compose |
+| nginx-proxy-manager |  https://hub.docker.com/r/jc21/nginx-proxy-manager |
 
 ## Changelog
 All notable changes (i.e. fixes, features and breaking changes) are documented 
