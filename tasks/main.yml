@@ -27,9 +27,9 @@
   ansible.builtin.assert:
     that:
       - ansible_facts['distribution'] == 'Ubuntu'
-      - ansible_facts['distribution_version'] == '22.04'
-    fail_msg: "Supports Ubuntu version 22.04. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}."
-    success_msg: "Running on Ubuntu {{ ansible_facts['distribution_version'] }}."
+      - ansible_facts['distribution_major_version'] in ['22', '24']
+    fail_msg: "Supports Ubuntu version 24 or 22. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_major_version'] }}."
+    success_msg: "Running on Ubuntu {{ ansible_facts['distribution_major_version'] }}."
 
 - name: Ensure apt cache is up-to-date
   ansible.builtin.apt:
@@ -43,7 +43,7 @@
 
 - name: Add Docker apt repository
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_facts['distribution_release'] }} stable"
     state: present
     filename: docker
 
@@ -51,25 +51,16 @@
   ansible.builtin.apt:
     update_cache: true
 
-- name: Pin package versions prior to installation
-  ansible.builtin.set_fact:
-    package_versions:
-      ubuntu:
-        docker-ce: "docker-ce=5:28.3.3-1~ubuntu.22.04~jammy"
-        docker-ce-cli: "docker-ce-cli=5:28.3.3-1~ubuntu.22.04~jammy"
-        containerd.io: "containerd.io=1.7.27-1"
-        docker-compose-plugin: "docker-compose-plugin=2.39.1-1~ubuntu.22.04~jammy"
-
 - name: Install Docker packages
   ansible.builtin.apt:
     name: "{{ item }}"
     state: present
-    allow_downgrade: true
+    allow_downgrade: false
   loop:
-    - "{{ package_versions['ubuntu']['docker-ce'] }}"
-    - "{{ package_versions['ubuntu']['docker-ce-cli'] }}"
-    - "{{ package_versions['ubuntu']['containerd.io'] }}"
-    - "{{ package_versions['ubuntu']['docker-compose-plugin'] }}"
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-compose-plugin
 
 - name: Ensure docker service is enabled and started
   ansible.builtin.systemd:
@@ -120,9 +111,8 @@
       - "OpenStack Security Group: '{{ os_security_group_name }}'"
 
 - name: Temporary setup Trivy for SBOM auto-generation (standalone binary file at /tmp/trivy)
-  ansible.builtin.shell:
+  ansible.builtin.shell:  # noqa: command-instead-of-module risky-shell-pipe
     cmd: |
-      set -o pipefail
       curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /tmp
     creates: /tmp/trivy
 
