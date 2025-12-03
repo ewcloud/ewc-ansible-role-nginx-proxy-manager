@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/compare/1.0.0...1.1.0) (2025-12-03)
+
+
+### Features
+
+* Automated patch rollout and test automation support ([#2](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/issues/2)) ([a3c813e](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/commit/a3c813ea0423a75cee24b02e69a0fc8b60d26c82))
+
 # 1.0.0 (2025-09-04)
 
 
