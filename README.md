@@ -23,13 +23,6 @@ all third-party components included in the environment.
 
 Contact [EUMETSAT](http://www.eumetsat.int) for details on the usage and distribution terms.
 
-## Authentication
-
-Before proceeding, if you lack OpenStack Application Credentials or do not know
-how to make them available to Ansible in your development environment, make sure
-to check out the 
-[EWC documentation](https://confluence.ecmwf.int/display/EWCLOUDKB/EWC+-+How+to+request+Openstack+Application+Credentials).
-
 ## Usage
 
 The step-by-step described below assume your local file system follows the 
@@ -88,7 +81,6 @@ ansible-playbook -i inventory.yml playbook.yml
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|----------|
 | npm_admin_ui_port | port number at which the Nginx Proxy Manager admin UI is served. Example: `8080` | `number` | n/a | yes |
-| os_security_group_name | OpenStack security group containing all firewall rules required for Nginx Proxy Manager operation. Example: `nginx-proxy-manager` | `string` | n/a | yes |
 
 ## Dependencies
 > 💡 Upon execution, a SBOM (SPDX format) is auto-generated and stored in the VM's file system root directory (see `/sbom.json`).
