@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/compare/1.1.1...1.1.2) (2026-04-06)
+
+
+### Bug Fixes
+
+* Remove need for OpenStack app cred and Securtiy Group inspection ([#3](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/issues/3)) ([67fc8a1](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/commit/67fc8a1a465463dbffcd246a4d90d2dde3f1da21))
+
 ## [1.1.1](https://github.com/ewcloud/ewc-ansible-role-nginx-proxy-manager/compare/1.1.0...1.1.1) (2025-12-03)
 
 
